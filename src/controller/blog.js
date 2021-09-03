@@ -1,19 +1,19 @@
 const { exec } = require('./../db/mysql')
+const xss = require('xss');
+
 const getList = (author, keyword) => {
-    let sql = `select * from blogs where 1=1 `
+    let sql = `select id, title, content, createTime, author from blogs where 1=1 `
     if (author) {
         sql += `and author='${author}'`
     }
     if (keyword) {
-        sql += `and title like '%${keyword}'`
+        sql += `and title like '%${keyword}%'`
     }
-
-    sql += `order by createtime desc`
-
+    sql += `order by createTime desc`
     return exec(sql)
 }
 
-const getDetail = (id) => {
+const getDetail = id => {
     const sql = `select * from blogs where id='${id}'`
     return exec(sql).then(rows => {
         return rows[0]
@@ -21,37 +21,40 @@ const getDetail = (id) => {
 }
 
 const newBlog = (blogData = {}) => {
-    // blogData 博客对象  包含title content author
-    const title = blogData.title
-    const content = blogData.content
+    const title = xss(blogData.title)
+    const content = xss(blogData.content)
     const author = blogData.author
+    
+    // const { title, content, author } = blogData
     const createTime = Date.now()
 
-    const sql = `insert into blogs (title, content, createtime, author) values ('${title}','${content}',${createTime},'${author}')`
-
+    let sql = `INSERT INTO blogs (title,content,createtime,author) values ('${title}','${content}','${createTime}','${author}')`
     return exec(sql).then(insertData => {
-        return { id: insertData.insertId }
+        // console.log("🚀 ~ file: blog.js ~ line 28 ~ returnexec ~ insertData", insertData)
+        return insertData.insertId
     })
 }
 
 const updateBlog = (id, blogData = {}) => {
-    // id   更新博客的id
-    const title = blogData.title
-    const content = blogData.content
+    // id 更新的博客id
+    // blogData 更新的博客内容
+    const { title, content } = blogData
+    const createTime = Date.now()
+    const sql = `UPDATE blogs SET title='${title}', content='${content}', createtime='${createTime}' WHERE id='${id}'`
 
-    const sql = `update blogs set title='${title}', content='${content}' where id=${id}`
     return exec(sql).then(updateData => {
-        if (updateData.affectedRows > 0) {
+        if (updateData.changedRows > 0) {
             return true
         }
         return false
     })
 }
 
-const deleteBlog = (id, author) => {
+const delBlog = (id, author) => {
     const sql = `delete from blogs where id=${id} and author='${author}'`
-    return exec(sql).then(updateData => {
-        if (updateData.affectedRows > 0) {
+    return exec(sql).then(delData => {
+        console.log("🚀 ~ file: blog.js ~ line 51 ~ returnexec ~ delData", delData)
+        if (delData.affectedRows > 0) {
             return true
         }
         return false
@@ -60,5 +63,5 @@ const deleteBlog = (id, author) => {
 
 
 module.exports = {
-    getList, getDetail, newBlog, updateBlog, deleteBlog,
+    getList, getDetail, newBlog, updateBlog, delBlog
 }

@@ -29,5 +29,5 @@ class ErrorModel extends BaseModel {
 }
 
 module.exports = {
-    SuccessModel, ErrorModel
+    SuccessModel,ErrorModel
 }

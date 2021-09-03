@@ -1,0 +1,47 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\yarn\bin\yarn.js add xss
+
+PATH: 
+  C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;F:\nvm\nvm;C:\Program Files\nodejs;E:\tools\SVN\bin;C:\Program Files\TortoiseGit\bin;F:\toolinstall\git\Git\cmd;D:\Program Files\cmder_mini;D:\Program Files\mysql\bin;C:\Users\Administrator\AppData\Local\Programs\Python\Python38\Scripts\;C:\Users\Administrator\AppData\Local\Programs\Python\Python38\;C:\Users\Administrator\AppData\Local\Microsoft\WindowsApps;F:\toolinstall\Microsoft VS Code\bin;F:\nvm\nvm;C:\Program Files\nodejs;C:\Users\Administrator\AppData\Local\Programs\APICloud Studio 3\bin;d:\Program Files\Bandizip\;D:\Program Files\mysql\bin;
+
+Yarn version: 
+  1.22.11
+
+Node version: 
+  12.19.0
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: ENOENT: no such file or directory, copyfile 'C:\Users\Administrator\AppData\Local\Yarn\Cache\v6\npm-ansi-regex-4.1.0-8b9f8f08cf1acb843756a839ca8c7e3168c51997-integrity\node_modules\ansi-regex\index.js' -> 'F:\myCode\nodejs\blog\node_modules\ansi-align\node_modules\ansi-regex\index.js'
+
+npm manifest: 
+  {
+    "name": "blog",
+    "version": "1.0.0",
+    "description": "",
+    "main": "app.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "dev": "cross-env NODE_ENV=dev nodemon ./bin/www.js",
+      "prd": "cross-env NODE_ENV=production nodemon ./bin/www.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+      "cross-env": "^7.0.3",
+      "mysql": "^2.18.1",
+      "nodemon": "^2.0.12"
+    },
+    "dependencies": {
+      "redis": "^3.1.2"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

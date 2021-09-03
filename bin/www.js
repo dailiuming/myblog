@@ -1,9 +1,8 @@
 const http = require('http');
-
-const PORT = 3001
-const serverHandle = require('../app')
-
+const serverHandle = require('./../app.js')
+const RORT = 3000
 const server = http.createServer(serverHandle)
-server.listen(PORT, () => {
-    console.log(`${PORT} 启动成功~`);
+
+server.listen(RORT, () => {
+    console.log('3000服务启动成功')
 })
